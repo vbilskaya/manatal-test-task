@@ -17,7 +17,7 @@
         color="orange-darken-2"
       >
         <router-link :to="`/news/${id}`">
-          More
+          {{ $t('more')}}
         </router-link>
       </v-btn>
   </v-card>
@@ -25,9 +25,14 @@
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'Card',
+  setup() {
+    const { t } = useI18n() // use as global scope
+    return { t }
+  },
   props: [ 'article', 'id' ],
   computed: {
     stylesBg(){

@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { fetchData } from '@/api'
 
 const store = new Vuex.Store({
   state: {
@@ -16,26 +17,19 @@ const store = new Vuex.Store({
   actions: {
     async getTopHeadlines(){
       try {
-        fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=099148be22804e849a0c6fe022b7cf5e')
-          .then((response) => response.json())
-          .then((data) => {
-            this.commit('setTopHeadlines', data.articles)
-          });
+        const data = await fetchData('top-headlines', { country: 'us' });
+        this.commit('setTopHeadlines', data.articles)
       } catch(e){
-
+        console.log('getTopHeadlines error')
       }
      
     },
     async getSources(){
       try{
-        fetch('https://newsapi.org/v2/sources?apiKey=099148be22804e849a0c6fe022b7cf5e')
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            this.commit('setSources', data.sources)
-          });
+        const data = await fetchData('sources');
+        this.commit('setSources', data.sources)
       } catch(e){
-
+        console.log('getSources error')
       }
     }
   }
