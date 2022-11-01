@@ -1,26 +1,18 @@
 <template>
   <v-app>
-    <h1>Hello</h1>
+    <Header></Header>
     <v-main>
       <router-view/>
     </v-main>
   </v-app>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import Header from '@/components/Header.vue'
+import { useStore } from 'vuex'
 
-export default defineComponent({
-  name: 'App',
+const store = useStore();
 
-  components: {
-   
-  },
-
-  data () {
-    return {
-      //
-    }
-  },
-})
+store.dispatch('getTopHeadlines');
+store.dispatch('getSources');
 </script>

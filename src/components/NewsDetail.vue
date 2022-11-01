@@ -1,68 +1,51 @@
 <template>
   <v-container>
-   News detail
+   <main v-if="thisHeadline">
+      <h1>{{thisHeadline.title}}</h1>
+      <v-img :src="thisHeadline.urlToImage"/>
+      <time :datetime="thisHeadline.publishedAt">{{getDateFormatted(thisHeadline.publishedAt)}}</time>
+      <a :href="thisHeadline.url">{{thisHeadline.source.name}}</a>
+      <p>{{thisHeadline.description}}</p>
+      <div>{{thisHeadline.author}}</div>
+      <section>{{thisHeadline.content}}</section>
+   </main>
   </v-container>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
+import { computed } from "vue";
+import { onMounted } from 'vue'
 
-// Logo
-import logo from '../assets/logo.svg'
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
 
-export default defineComponent({
-  name: 'NewsDetail',
+const { t } = useI18n()
 
-  data () {
-    return {
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader/tree/next',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify/tree/next',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      logo,
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Roadmap',
-          href: 'https://vuetifyjs.com/en/introduction/roadmap/',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
+const thisHeadline = computed(() => {
+  let headline = store.state.topHeadlines[Number(route.params.id)];
+  if(headline){
+    const history = localStorage.getItem('history');
+    if(history){
+      let parsedHistory = JSON.parse(history);
+      parsedHistory.push(headline.title);
+      localStorage.setItem('history', JSON.stringify(parsedHistory));
+    } else {
+      let newHistory = [];
+      newHistory.push(headline.title);
+      localStorage.setItem('history', JSON.stringify(newHistory));
     }
-  },
-})
+    return store.state.topHeadlines[Number(route.params.id)]
+  }
+   
+});
+
+function getDateFormatted(date: string): any {
+  return new Date(date);
+}
+
+
 </script>

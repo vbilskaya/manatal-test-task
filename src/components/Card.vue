@@ -1,63 +1,77 @@
 <template>
-  <v-card variant="tonal" :style="stylesBg">
+  <v-card variant="tonal" class="my-card">
     <v-img
       height="200"
       :src="article.urlToImage"
       cover
-      class="text-white"
+      class="image text-white"
     />
-    <v-card-title>
-      {{article.title}}
+    <v-card-title class="title" :title="editableTitle">
+      {{ editableTitle }}
     </v-card-title>
-    <v-card-text>
-      {{article.description}}
+    <v-card-text class="description">
+      {{props.article.description}}
     </v-card-text>
-     <v-btn
-        class="ma-2"
-        color="orange-darken-2"
-      >
-        <router-link :to="`/news/${id}`">
-          {{ $t('more')}}
-        </router-link>
-      </v-btn>
+    <Toolbar :id="id" :title="props.article.title" @changeTitle="(str) => changeTitle(str)" class="toolbar"/>
   </v-card>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script setup lang='ts'>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Toolbar from './Toolbar.vue'
 
-export default defineComponent({
-  name: 'Card',
-  setup() {
-    const { t } = useI18n() // use as global scope
-    return { t }
-  },
-  props: [ 'article', 'id' ],
-  computed: {
-    stylesBg(){
-      return {
-        'background-image': this.article.urlToImage,
-      } 
-    }
-  },
+interface Props {
+  article: any,
+  id: any
+}
 
-  data () {
-    return {
-    }
-  },
-  
-})
+const props = defineProps<Props>()
+
+const { t } = useI18n()
+
+ const editableTitle: string = ref(props.article.title);
+
+ function changeTitle(value: string){
+  this.editableTitle = value;
+ }
+
 </script>
 
+<style scoped>
+.image{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: .8;
+}
 
-<!-- author:"https://www.facebook.com/bbcnews"
-content:"Politics have moved at pace in recent days, but now the new prime minister and his chancellor have decided to take their time before delivering a statement key to our financial prospects. \nOur person… [+6309 chars]"
-description:"Big decisions affecting your money will be announced in next month's Autumn Statement."
-publishedAt:"2022-10-26T10:30:28Z"
-source:Object
-id:null
-name:"BBC News"
-title:"Rishi Sunak: What will the new PM and the autumn statement mean for my money? - BBC"
-url:"https://www.bbc.com/news/business-63387955"
-urlToImage:"https://ichef.bbci.co.uk/news/1024/branded_news/5AA3/production/_127330232_gettyimages-1167717541.jpg" -->
+.my-card{
+  position: relative;
+}
+
+.title{
+  color: black;
+  margin-right: 20px;
+}
+
+.description{
+  color: white;
+  margin-right: 20px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+.toolbar{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+</style>

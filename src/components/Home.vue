@@ -75,11 +75,6 @@ export default defineComponent({
     sources(){
       return this.$store.state.sources;
     }
-  },
-  created(){
-    this.$store.dispatch('getTopHeadlines');
-    this.$store.dispatch('getSources');
-    // getTopHeadlines
   }
 })
 </script>
