@@ -20,7 +20,7 @@
               {{ $t('change_title')}}
             </v-card-title>
             <v-text-field
-            v-model="newTitle"
+              v-model="newTitle"
               label="Change title"
               :rules="rules"
               hide-details="auto"

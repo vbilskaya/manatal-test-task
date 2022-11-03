@@ -3,6 +3,7 @@
     <Header></Header>
     <v-main>
       <router-view/>
+      <notifications />
     </v-main>
   </v-app>
 </template>
@@ -16,3 +17,9 @@ const store = useStore();
 store.dispatch('getTopHeadlines');
 store.dispatch('getSources');
 </script>
+
+<style>
+:root {
+  --ms-tag-bg: #86af49;
+}
+</style>

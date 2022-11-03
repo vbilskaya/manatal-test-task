@@ -8,6 +8,7 @@ import * as directives from 'vuetify/directives'
 import router from './router'
 import store from './store'
 import { createI18n } from 'vue-i18n'
+import Notifications from '@kyvg/vue3-notification'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 const i18n = createI18n({
@@ -22,6 +23,10 @@ const i18n = createI18n({
       more: 'More',
       edit_title: 'Edit title',
       change_title: 'Would you like to change title?',
+      wrong_api: 'Click me!',
+      source_link: 'Watch full article at ',
+      author: 'Author: ',
+      publishedAt: 'Published at '
     },
   }
 })
@@ -38,4 +43,5 @@ createApp(App)
   .use(i18n)
   .use(router)
   .use(store)
+  .use(Notifications)
   .mount('#app')

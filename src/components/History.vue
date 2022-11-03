@@ -26,8 +26,6 @@ const emit = defineEmits(['close'])
 const { t } = useI18n()
 const history: string[] = JSON.parse(localStorage.getItem('history'));
 
-console.log(history);
-
 function closeHistory(){
    emit('close');
 }
@@ -38,14 +36,12 @@ function closeHistory(){
 .side-menu{
   padding: 12px 20px;
   height: 100%;
-  max-width: 300px; 
+  width: 300px; 
   position: fixed; 
   z-index: 1; 
   top: 0; 
   left: 0;
   background-color: #b5e7a0; 
-  overflow-x: hidden; 
-  transition: 0.5s;
 }
 
 .wrapper{

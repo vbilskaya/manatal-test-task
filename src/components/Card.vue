@@ -6,6 +6,7 @@
       cover
       class="image text-white"
     />
+    <div class="background"></div>
     <v-card-title class="title" :title="editableTitle">
       {{ editableTitle }}
     </v-card-title>
@@ -49,6 +50,21 @@ const { t } = useI18n()
 
 .my-card{
   position: relative;
+  min-height: 200px;
+}
+
+
+
+.background{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #d5e1df99;
+  z-index: -1;
+}
+
+.my-card:hover .background{
+background: #d5e1df00;
 }
 
 .title{
@@ -57,7 +73,7 @@ const { t } = useI18n()
 }
 
 .description{
-  color: white;
+  color:  #3e4444;
   margin-right: 20px;
   overflow: hidden;
   display: -webkit-box;
