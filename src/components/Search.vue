@@ -18,8 +18,6 @@ const store = useStore()
 const search: any = ref('');
 
 function onSearchChange(){
-  console.log('onSearchChange');
-  console.log(search);
   store.dispatch('getHeadlinesBySearch', search.value);
 }
 </script>

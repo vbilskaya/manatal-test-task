@@ -84,6 +84,7 @@ const { t } = useI18n()
 }
 
 .btns-wrapper{
+  padding-top: 12px;
   display: flex;
   justify-content: space-around;
 }

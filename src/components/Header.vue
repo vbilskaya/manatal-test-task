@@ -28,8 +28,6 @@
     <Transition name="slide">
       <History v-if="showHistory" @close="showHistory = false"/>
     </Transition>
-   
-   
   </header>
 </template>
 

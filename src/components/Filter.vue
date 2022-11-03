@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
- import Multiselect from '@vueform/multiselect'
+import Multiselect from '@vueform/multiselect'
 import { useStore } from 'vuex'
 import { ref } from 'vue';
 

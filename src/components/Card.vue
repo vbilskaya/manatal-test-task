@@ -53,8 +53,6 @@ const { t } = useI18n()
   min-height: 200px;
 }
 
-
-
 .background{
   position: absolute;
   width: 100%;
@@ -64,7 +62,7 @@ const { t } = useI18n()
 }
 
 .my-card:hover .background{
-background: #d5e1df00;
+  background: #d5e1df00;
 }
 
 .title{
